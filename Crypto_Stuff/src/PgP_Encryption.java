@@ -1,66 +1,122 @@
-import java.math.BigInteger;
-import java.util.*;
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.*;
+import java.util.Base64;
+
 
 public class PgP_Encryption {
 
-    public static void main(String[] args) {
-
-        BigInteger p = new BigInteger(1024, 100, new Random());
-        BigInteger q = new BigInteger(1024, 100, new Random());
-
-        BigInteger n = p.multiply(q);
-
-        BigInteger Carmi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
-
-
-        BigInteger e = new BigInteger("65");
+    private String message;
+    private PublicKey sendersPublicKey;
+    private PublicKey recieversPublicKey;
+    private PrivateKey privateKey;
+    private SecretKey randomKey;
+    private byte[] encryptedKey;
+    private byte[] encryptedText;
 
 
-        for(BigInteger i = BigInteger.TWO; i.compareTo(e) < 0; i = i.add(BigInteger.ONE)) {
+    public PgP_Encryption(String text, PublicKey publicKey ) {
+        this.message = text;
+        this.sendersPublicKey = publicKey;
+    }
 
-            BigInteger[] temp = Carmi.divideAndRemainder(i);
+    public PgP_Encryption(byte[] encryptedText, byte[] encryptedKey, PrivateKey privateKey) {
+        this.encryptedText = encryptedText;
+        this.encryptedKey = encryptedKey;
+        this.privateKey = privateKey;
+    }
 
-            if(temp[1].compareTo(BigInteger.ZERO) == 0) {
-                temp = e.divideAndRemainder(i);
+    public PgP_Encryption(String text, PublicKey sendersPublicKey, PublicKey recieversPublicKey) {
+        this.message = text;
+        this.sendersPublicKey = sendersPublicKey;
+        this.recieversPublicKey = recieversPublicKey;
+    }
 
-                if(temp[1].compareTo(BigInteger.ZERO) == 0) {
-                    System.out.println("This e doesn't work, increasing with one");
+    public byte[] encrypt() throws NoSuchAlgorithmException {
 
-                    e = e.add(BigInteger.TWO);
-                    i = BigInteger.TWO;
-
-                }
-            }
+        if(recieversPublicKey == null) {
+            System.out.println("Don't Have public key sending without encryption");
+            return message.getBytes();
         }
 
-        BigInteger d = euclidean_division(Carmi, e);
+        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+        randomKey = keyGen.generateKey();
 
-        System.out.println("D value is " + d.toString());
+        try {
+            Cipher aesCipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            aesCipher.init(Cipher.ENCRYPT_MODE, randomKey);
 
+            byte[] temp = message.getBytes();
+
+            byte[] temp2 = randomKey.getEncoded();
+
+            Cipher rsaCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            rsaCipher.init(Cipher.ENCRYPT_MODE, recieversPublicKey);
+
+            encryptedKey = rsaCipher.doFinal(temp2);
+
+            return aesCipher.doFinal(temp);
+        }
+        catch (NoSuchPaddingException e ) {
+            System.out.println("No such padding exist");
+            e.printStackTrace();
+        }
+        catch (InvalidKeyException e) {
+            System.out.println("No such Key");
+            e.printStackTrace();
+        }
+        catch (IllegalBlockSizeException e) {
+            System.out.println("Too big of a message");
+            e.printStackTrace();
+        }
+        catch (BadPaddingException e) {
+            System.out.println("Bad padding");
+            e.printStackTrace();
+        }
+
+
+        return null;
 
     }
 
+    public byte[] decrypt() {
+        try {
+            Cipher rsaCipher  = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+            rsaCipher.init(Cipher.DECRYPT_MODE, privateKey);
 
-    public static BigInteger euclidean_division(BigInteger Carmi, BigInteger e) {
-        BigInteger k = BigInteger.ONE;
+            byte[] temp = rsaCipher.doFinal(encryptedKey);
 
-        while(true){
+            SecretKey secretKey = new SecretKeySpec(temp, 0, temp.length, "AES");
 
-            BigInteger temp = k.multiply(Carmi);
-            temp = BigInteger.ONE.add(temp);
+            Cipher aesCipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            aesCipher.init(Cipher.DECRYPT_MODE, secretKey);
 
-            BigInteger[] rest = temp.divideAndRemainder(e);
-
-            if(rest[1].compareTo(BigInteger.ZERO) == 0) {
-
-                System.out.println("K value is: " + k.toString());
-                return rest[0];
-            }
-
-            else {
-                k = k.add(BigInteger.ONE);
-            }
-
+            return aesCipher.doFinal(encryptedText);
         }
+        catch (NoSuchPaddingException e ) {
+            System.out.println("No such padding exist");
+            e.printStackTrace();
+        }
+        catch (InvalidKeyException e) {
+            System.out.println("No such Key");
+            e.printStackTrace();
+        }
+        catch (IllegalBlockSizeException e) {
+            System.out.println("Too big of a message");
+            e.printStackTrace();
+        }
+        catch (BadPaddingException e) {
+            System.out.println("Bad padding");
+            e.printStackTrace();
+        }
+        catch (NoSuchAlgorithmException e) {
+            System.out.println("Nop such algorithm");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public byte[] getEncryptedKey() {
+        return encryptedKey;
     }
 }

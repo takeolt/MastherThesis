@@ -1,3 +1,7 @@
+package com.devglan.rsa;
+
+
+
 import java.math.BigInteger;
 import java.util.*;
 
@@ -20,7 +24,7 @@ class PgP_Encryption {
             
             BigInteger[] temp = Carmi.divideAndRemainder(i);
 
-            if()
+            if()dddd
         }
 
     }
