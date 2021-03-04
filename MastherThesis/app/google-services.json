@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "29256818443",
+    "project_id": "masther-thesis",
+    "storage_bucket": "masther-thesis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29256818443:android:905308700d90a919954c0e",
+        "android_client_info": {
+          "package_name": "com.example.mastherthesis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29256818443-648vohvelhm32p9dks07aogfgi280ooi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnlK5zgG9Ha6c0GOIa3pomylz0GZhvgAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29256818443-648vohvelhm32p9dks07aogfgi280ooi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
