@@ -76,11 +76,15 @@ public class Register extends AppCompatActivity {
                 }
 
                 if(password1.length() < 6) {
+                    password.getText().clear();
+                    rePassword.getText().clear();
                     password.setError("Password is too short, password should be at least 6 of length");
                     return;
                 }
 
                 if(!password1.equals(password2)) {
+                    password.getText().clear();
+                    rePassword.getText().clear();
                     rePassword.setError("Reentered password is not equal the password");
                     return;
                 }
