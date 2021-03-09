@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class Register extends AppCompatActivity {
 
@@ -96,20 +97,45 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
-                                    Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()) {
+                                                Toast.makeText(Register.this, "User Created successfully, Please check your email for confirmation", Toast.LENGTH_SHORT).show();
+                                                progress.setVisibility(View.INVISIBLE);
+                                                startActivity(new Intent(getApplicationContext(), Login.class));
+                                            }
+                                            else{
+                                                progress.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                                 }
 
                                 else {
-                                    Toast.makeText(Register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                                    Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    progress.setVisibility((View.INVISIBLE));
                                 }
                             }
                         }
                 );
+
+
+
+            }
+        });
+
+        goToLoginText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivity(new Intent(getApplicationContext(), Login.class));
+               finish();
             }
         });
 
 
     }
+
+
 }
