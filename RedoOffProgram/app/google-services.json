@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "155486536555",
+    "project_id": "redooffprogram",
+    "storage_bucket": "redooffprogram.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155486536555:android:073c58833bd7e78801422e",
+        "android_client_info": {
+          "package_name": "com.example.redooffprogram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155486536555-hglvo3u562l19t3bunfri1ju3dm5oghk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7H6hupR00ver_4km9oRkTlBuGJYucUCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155486536555-hglvo3u562l19t3bunfri1ju3dm5oghk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
