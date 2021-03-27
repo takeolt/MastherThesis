@@ -21,36 +21,34 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText et_email, et_subject, et_message;
+    EditText name;
 
-    Button et_send, signOut;
+    Button send, inbox, signOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        et_email = (EditText) findViewById(R.id.et_email);
-        et_subject = (EditText) findViewById(R.id.et_subject);
-        et_message = (EditText) findViewById(R.id.et_message);
-        signOut = findViewById(R.id.signOut);
-        et_send = (Button) findViewById(R.id.et_send);
+        signOut = (Button) findViewById(R.id.main_logOut_button);
+        send = (Button) findViewById(R.id.main_Send);
+        inbox = (Button) findViewById(R.id.main_Ibox_button);
 
-        et_send.setOnClickListener(new View.OnClickListener() {
+
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String to = et_email.getText().toString();
-                String subject = et_subject.getText().toString();
-                String message = et_message.getText().toString();
+                startActivity(new Intent(getApplicationContext(), Send_mail.class));
+                finish();
+            }
+        });
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(intent.EXTRA_EMAIL, new String[] {to});
-                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                intent.putExtra(Intent.EXTRA_TEXT, message);
-
-                intent.setType("message/rfc822");
-
-                startActivity(Intent.createChooser(intent, "Select Email app"));
+        inbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Inbox.class));
+                finish();
             }
         });
 
@@ -63,4 +61,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
+

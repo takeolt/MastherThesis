@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    android:id="@+id/activity_main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="vertical"
-    android:paddingTop="16dp"
-    tools:context="com.example.mastherthesis.MainActivity">
-
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="email"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/et_subject"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="subject" />
-
-    <EditText
-        android:id="@+id/et_message"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="Message"
-        android:inputType="textMultiLine" />
+    android:background="@drawable/background_1" >
 
     <Button
-        android:id="@+id/et_send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send" />
+        android:id="@+id/main_Send"
+        android:layout_width="179dp"
+        android:layout_height="60dp"
+        android:text="@string/send_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251" />
 
     <Button
-        android:id="@+id/signOut"
-        android:layout_width="match_parent"
+        android:id="@+id/main_Ibox_button"
+        android:layout_width="179dp"
+        android:layout_height="60dp"
+        android:text="@string/inbox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.358" />
+
+    <TextView
+        android:id="@+id/Main_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Out" />
-</LinearLayout>
+        android:fontFamily="@font/aclonica"
+        android:text="@string/mmailen"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#070707"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.075" />
+
+    <Button
+        android:id="@+id/main_logOut_button"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:text="@string/log_out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.704" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

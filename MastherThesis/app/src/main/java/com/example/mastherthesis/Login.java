@@ -91,6 +91,7 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 });
+                prog.setVisibility(View.INVISIBLE);
             }
         });
 
