@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity {
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), activity_signUp.class));
+                startActivity(new Intent(getApplicationContext(), Activity_signUp.class));
                 finish();
             }
         });
