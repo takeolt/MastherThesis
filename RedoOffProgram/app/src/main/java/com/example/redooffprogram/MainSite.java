@@ -16,8 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainSite extends AppCompatActivity {
 
 
-    EditText name;
-
     Button send, inbox, signOut;
 
     @Override
@@ -46,7 +44,7 @@ public class MainSite extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Send_mail.class));
+                //startActivity(new Intent(getApplicationContext(), activity_Send.class));
                 finish();
             }
         });
@@ -54,7 +52,7 @@ public class MainSite extends AppCompatActivity {
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Telephony.Mms.Inbox.class));
+
                 finish();
             }
         });

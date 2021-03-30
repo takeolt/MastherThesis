@@ -11,10 +11,14 @@
     <string name="login_failed">"Login failed"</string>
     <string name="passord">passord</string>
     <string name="email_address">email address</string>
-    <string name="mmailen">Mmailen</string>
+    <string name="MMail">MMail</string>
     <string name="name">name</string>
-    <string name="repassword">repassword</string>
+    <string name="rePassword">RePassword</string>
     <string name="register">register</string>
     <string name="have_account_login_here">have account, login here</string>
     <string name="account_registration">Account Registration</string>
+    <string name="Message">Text here</string>
+    <string name="subject">Subject</string>
+    <string name="receiver">Receiver Email</string>
+    <string name="send">Send</string>
 </resources>

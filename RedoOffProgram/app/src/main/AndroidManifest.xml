@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.redooffprogram">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedoOffProgram">
-        <activity android:name=".Activity_signUp"/>
-        <activity android:name=".MainSite"/>
+        <activity android:name=".activity_Send" />
+        <activity android:name=".Activity_signUp" />
+        <activity android:name=".MainSite" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
