@@ -28,7 +28,7 @@ public class activity_Send extends AppCompatActivity implements View.OnClickList
     private FirebaseDatabase base = FirebaseDatabase.getInstance();
     private DatabaseReference ref = base.getReference("Users");
 
-    protected Button send;
+    protected Button send, back;
     protected EditText me, reciever, sub, msg;
     protected ProgressBar bar;
 

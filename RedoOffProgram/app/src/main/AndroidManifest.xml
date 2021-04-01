@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RedoOffProgram">
+        <activity android:name=".Inbox"/>
         <activity android:name=".activity_Send" />
         <activity android:name=".Activity_signUp" />
         <activity android:name=".Login" />

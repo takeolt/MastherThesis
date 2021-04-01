@@ -50,7 +50,7 @@ public class MainSite extends AppCompatActivity {
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getApplicationContext(), Inbox.class));
                 finish();
             }
         });
