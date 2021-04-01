@@ -94,12 +94,12 @@ public class Activity_signUp extends AppCompatActivity {
                                             Toast.makeText(Activity_signUp.this, "User was created successfully, Please verify it", Toast.LENGTH_SHORT).show();
 
                                             ref = database.getReference("Users");
+                                            FirebaseUser user = auth.getCurrentUser();
+                                            String uid = user.getUid();
 
-                                            UserInfo info = makeInfo(userText, passwordText);
+                                            UserInfo info = makeInfo(userText, passwordText, uid);
 
                                             if(info != null) {
-                                                FirebaseUser user = auth.getCurrentUser();
-                                                String uid = user.getUid();
                                                 ref.child(uid).setValue(info);
                                             }
 
@@ -162,12 +162,14 @@ public class Activity_signUp extends AppCompatActivity {
         bar.setVisibility(View.GONE);
     }
 
-    private UserInfo makeInfo(String email, String password) {
+    private UserInfo makeInfo(String email, String password, String id) {
         try {
             DatabaseReference refr = database.getReference("Public Keys");
             KeysGenerator keys = new KeysGenerator();
-            refr.child(email).setValue(keys.getPublicKey());
-            return new UserInfo(email, password, keys.getPrivateKey(),keys.getPublicKey());
+            PublicKeyHelper temp = new PublicKeyHelper(email, keys.getPublicKey().toString());
+            refr.child(email).setValue(temp);
+
+            return new UserInfo(email, password, keys.getPrivateKey(),keys.getPublicKey(), id);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

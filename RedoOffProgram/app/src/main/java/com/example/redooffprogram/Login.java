@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
             finish();
         }
 
-        user = auth.getCurrentUser();
+
 
        login.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -71,6 +71,7 @@ public class Login extends AppCompatActivity {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()) {
+                           user = auth.getCurrentUser();
                            if(!user.isEmailVerified()) {
                                Toast.makeText(Login.this, "Account needs to be verified", Toast.LENGTH_SHORT).show();
                                auth.signOut();

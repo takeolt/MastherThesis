@@ -13,11 +13,8 @@
         android:theme="@style/Theme.RedoOffProgram">
         <activity android:name=".activity_Send" />
         <activity android:name=".Activity_signUp" />
-        <activity android:name=".MainSite" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".Login">
+        <activity android:name=".Login" />
+        <activity android:name=".MainSite">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
