@@ -72,6 +72,7 @@ public class activity_Send extends AppCompatActivity implements View.OnClickList
 
                     send(email, password, subject, message, rec);
 
+
                 } catch (Exception e) {
                     Log.e("SendMail", e.getMessage(), e);
                 }

@@ -1,14 +1,33 @@
 package com.example.redooffprogram;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -31,7 +50,9 @@ public class GMailSender extends AsyncTask<Void, Void, Void> {
     protected final String messageText;
     protected final String password;
     protected final String reciever;
+    @SuppressLint("StaticFieldLeak")
     protected Context context;
+    private static int amount = 0;
 
 
     //Progressdialog to show while sending email
@@ -98,6 +119,68 @@ public class GMailSender extends AsyncTask<Void, Void, Void> {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+
+        FirebaseDatabase base = FirebaseDatabase.getInstance();
+        DatabaseReference ref = base.getReference("Keys");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot datasnapshot : snapshot.getChildren()
+                     ) {
+
+                    String email = datasnapshot.child("email").getValue(String.class);
+
+                    if(email.equals(reciever)) {
+                        try {
+
+                            KeyFactory kf = KeyFactory.getInstance("RSA");
+                            X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(datasnapshot.child("publicKey").getValue(String.class)));
+                            RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+
+                            Encryption en = new Encryption(messageText, pubKey);
+                            byte[] text = en.encrypt();
+
+                            System.out.println("THIS IS BEFORE THE TEST" + text);
+
+                            System.out.println("The key is : " + en.getEncryptedKey());
+
+
+                            String textMsg = Base64.getEncoder().encodeToString(text);
+
+                            System.out.println("THIS IS A TEST: " + Base64.getDecoder().decode(textMsg));
+                            System.out.println("THIS IS A TEST: " + Base64.getDecoder().decode(textMsg));
+
+                            DatabaseReference ref = base.getReference("Message");
+                            String id = "msg" + amount;
+
+
+                            MessageHelper msg = new MessageHelper(textMsg, reciever, user, subject, Base64.getEncoder().encodeToString(en.getEncryptedKey()));
+
+                            amount++;
+
+                            ref.child(id).setValue(msg);
+
+                        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
 
 
         return null;

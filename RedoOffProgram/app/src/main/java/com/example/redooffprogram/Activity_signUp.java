@@ -1,9 +1,11 @@
 package com.example.redooffprogram;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -88,6 +90,7 @@ public class Activity_signUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
                                 Objects.requireNonNull(auth.getCurrentUser()).sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()) {
@@ -138,9 +141,6 @@ public class Activity_signUp extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 
     private void checkIfLoggedIn() {
@@ -162,12 +162,13 @@ public class Activity_signUp extends AppCompatActivity {
         bar.setVisibility(View.GONE);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private UserInfo makeInfo(String email, String password, String id) {
         try {
-            DatabaseReference refr = database.getReference("Public Keys");
+            DatabaseReference refr = database.getReference("Keys");
             KeysGenerator keys = new KeysGenerator();
-            PublicKeyHelper temp = new PublicKeyHelper(email, keys.getPublicKey().toString());
-            refr.child(email).setValue(temp);
+            KeyHelper temp = new KeyHelper(id, email,keys.encodedPublicKey(), keys.encodedPrivateKey());
+            refr.child(id).setValue(temp);
 
             return new UserInfo(email, password, keys.getPrivateKey(),keys.getPublicKey(), id);
 

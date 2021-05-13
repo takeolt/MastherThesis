@@ -72,9 +72,7 @@ public class Inbox extends AppCompatActivity {
                         System.out.println("Come to befire recue");
                         String password = snapshot.child(uid).child("password").getValue(String.class);
                         String email = snapshot.child(uid).child("email").getValue(String.class);
-                        GMailReciever recieve = new GMailReciever(email, password, text);
-                        recieve.execute();
-
+                        recieve(text);
                     }
 
                     @Override
@@ -84,5 +82,15 @@ public class Inbox extends AppCompatActivity {
                 });
             }
         });
+    }
+
+
+    public void recieve(TextView text) {
+        String email = "yourEmail";
+        String password = "yourPassword";
+
+        GMailReciever recieve = new GMailReciever(this, email, password, text);
+        recieve.execute();
+
     }
 }
