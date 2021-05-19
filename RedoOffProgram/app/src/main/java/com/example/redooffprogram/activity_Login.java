@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class activity_Login extends AppCompatActivity {
     TextView noAccount;
     ProgressBar prog;
     Button login;
@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         if(auth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainSite.class));
+            startActivity(new Intent(getApplicationContext(), activity_Main.class));
             finish();
         }
 
@@ -67,25 +67,25 @@ public class Login extends AppCompatActivity {
 
                prog.setVisibility(View.VISIBLE);
 
-               auth.signInWithEmailAndPassword(loginEmail, loginPassword).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+               auth.signInWithEmailAndPassword(loginEmail, loginPassword).addOnCompleteListener(activity_Login.this, new OnCompleteListener<AuthResult>() {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()) {
                            user = auth.getCurrentUser();
                            if(!user.isEmailVerified()) {
-                               Toast.makeText(Login.this, "Account needs to be verified", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(activity_Login.this, "Account needs to be verified", Toast.LENGTH_SHORT).show();
                                auth.signOut();
                                prog.setVisibility(View.GONE);
                                return;
                            }
 
-                           Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(activity_Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                            prog.setVisibility(View.GONE);
-                           startActivity(new Intent(getApplicationContext(), MainSite.class));
+                           startActivity(new Intent(getApplicationContext(), activity_Main.class));
                            finish();
                        }
                        else {
-                           Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                           Toast.makeText(activity_Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                            prog.setVisibility(View.GONE);
                        }
 

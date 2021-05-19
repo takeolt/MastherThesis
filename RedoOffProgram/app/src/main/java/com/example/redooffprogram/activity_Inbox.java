@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class Inbox extends AppCompatActivity {
+public class activity_Inbox extends AppCompatActivity {
 
     protected Button back, msg;
     protected TextView text;
@@ -46,7 +45,7 @@ public class Inbox extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainSite.class));
+                startActivity(new Intent(getApplicationContext(), activity_Main.class));
                 finish();
             }
         });
@@ -77,7 +76,7 @@ public class Inbox extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(Inbox.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity_Inbox.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

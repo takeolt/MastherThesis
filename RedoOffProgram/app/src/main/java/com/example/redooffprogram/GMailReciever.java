@@ -112,21 +112,22 @@ public class GMailReciever extends AsyncTask<Void, Void, Void> {
                 }
                 String temp2 = "";
 
-                for(int i = 0; i < temp.length(); i++) {
+                for (int i = 0; i < temp.length(); i++) {
 
 
-                    if(temp.charAt(i) == '<') {
-                       for(int a = i + 1; a < temp.length(); a++) {
+                    if (temp.charAt(i) == '<') {
+                        for (int a = i + 1; a < temp.length(); a++) {
 
-                           if(temp.charAt(a) == '>') {
-                               i = temp.length() - 1;
-                               break;
-                           }
+                            if (temp.charAt(a) == '>') {
+                                i = temp.length() - 1;
+                                break;
+                            }
 
-                           temp2 = temp2 + temp.charAt(a);
-                       }
+                            temp2 = temp2 + temp.charAt(a);
+                        }
                     }
                 }
+            }
 
 
 
@@ -186,3 +187,4 @@ public class GMailReciever extends AsyncTask<Void, Void, Void> {
         }
     }
 }
+

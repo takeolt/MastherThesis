@@ -107,7 +107,7 @@ public class Activity_signUp extends AppCompatActivity {
                                             }
 
                                             setGone(load);
-                                            startActivity(new Intent(getApplicationContext(), MainSite.class));
+                                            startActivity(new Intent(getApplicationContext(), activity_Main.class));
                                             finish();
 
                                         }
@@ -137,7 +137,7 @@ public class Activity_signUp extends AppCompatActivity {
         loginHere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), activity_Login.class));
                 finish();
             }
         });
@@ -145,7 +145,7 @@ public class Activity_signUp extends AppCompatActivity {
 
     private void checkIfLoggedIn() {
         if(auth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainSite.class));
+            startActivity(new Intent(getApplicationContext(), activity_Main.class));
             finish();
         }
     }

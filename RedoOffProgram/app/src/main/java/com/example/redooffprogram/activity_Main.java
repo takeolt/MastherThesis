@@ -10,9 +10,8 @@ import android.widget.Button;
 
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class MainSite extends AppCompatActivity {
+public class activity_Main extends AppCompatActivity {
 
 
     Button send, inbox, signOut;
@@ -25,13 +24,13 @@ public class MainSite extends AppCompatActivity {
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), Login.class));
+            startActivity(new Intent(getApplicationContext(), activity_Login.class));
             finish();
         }
 
         if(!FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
 
-            startActivity(new Intent(getApplicationContext(), Login.class));
+            startActivity(new Intent(getApplicationContext(), activity_Login.class));
             finish();
         }
 
@@ -50,7 +49,7 @@ public class MainSite extends AppCompatActivity {
         inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Inbox.class));
+                startActivity(new Intent(getApplicationContext(), activity_Inbox.class));
                 finish();
             }
         });
@@ -59,7 +58,7 @@ public class MainSite extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), activity_Login.class));
                 finish();
             }
         });
