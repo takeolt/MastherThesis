@@ -21,4 +21,6 @@
     <string name="subject">Subject</string>
     <string name="receiver">Receiver Email</string>
     <string name="send">Send</string>
+    <string name="back">Back</string>
+    <string name="encrypt_text">Encrypt text</string>
 </resources>

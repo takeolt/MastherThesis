@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,7 @@ public class activity_Inbox extends AppCompatActivity {
 
     protected Button back, msg;
     protected TextView text;
+    protected Chip msg1, msg2, msg3, msg4, msg5, msg6, msg7, msg8, msg9, msg10, msg11;
 
     protected FirebaseAuth auth;
     protected FirebaseUser user;
@@ -38,8 +40,7 @@ public class activity_Inbox extends AppCompatActivity {
 
 
         back = (Button) findViewById(R.id.inboxgoBack);
-        text = (TextView) findViewById(R.id.inbox_text);
-        msg = (Button) findViewById(R.id.get_Message);
+
 
 
         back.setOnClickListener(new View.OnClickListener() {

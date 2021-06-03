@@ -45,57 +45,70 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/msg1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="temp"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="temp"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg7"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg9"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/msg11"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
     </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

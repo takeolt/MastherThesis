@@ -3,6 +3,7 @@ package com.example.redooffprogram;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,10 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 public class activity_Send extends AppCompatActivity implements View.OnClickListener{
 
     final private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private FirebaseUser user = auth.getCurrentUser();
+    private final FirebaseUser user = auth.getCurrentUser();
 
-    private FirebaseDatabase base = FirebaseDatabase.getInstance();
-    private DatabaseReference ref = base.getReference("Users");
+    private final FirebaseDatabase base = FirebaseDatabase.getInstance();
+    private final DatabaseReference ref = base.getReference("Users");
 
     protected Button send, back;
     protected EditText me, reciever, sub, msg;
@@ -38,12 +39,19 @@ public class activity_Send extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__send);
 
-        send = (Button) findViewById(R.id.send_button);
-        me = (EditText) findViewById(R.id.send_me);
-        reciever = (EditText) findViewById(R.id.send_reciever);
-        sub = (EditText) findViewById(R.id.subject);
-        msg = (EditText) findViewById(R.id.send_message);
-        bar = (ProgressBar) findViewById(R.id.send_load);
+        back = findViewById(R.id.button);
+
+        back.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), activity_Main.class));
+            finish();
+        });
+
+        send =  findViewById(R.id.send_button);
+        me =  findViewById(R.id.send_me);
+        reciever =  findViewById(R.id.send_reciever);
+        sub =  findViewById(R.id.subject);
+        msg =  findViewById(R.id.send_message);
+        bar = findViewById(R.id.send_load);
 
 
         String myEmail = user.getEmail();
