@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public class Activity_signUp extends AppCompatActivity {
 
-    EditText userName, password, rePassword;
+    EditText email, password, re_Password;
     Button signUp;
     ProgressBar load;
     TextView loginHere;
@@ -44,9 +44,9 @@ public class Activity_signUp extends AppCompatActivity {
         checkIfLoggedIn();
 
         signUp = (Button) findViewById(R.id.registerButton);
-        userName = (EditText) findViewById(R.id.EmailAddress);
+        email = (EditText) findViewById(R.id.EmailAddress);
         password = (EditText) findViewById(R.id.Password);
-        rePassword = (EditText) findViewById(R.id.RePassword);
+        re_Password = (EditText) findViewById(R.id.RePassword);
         load = (ProgressBar) findViewById(R.id.accountVerificationBar);
         loginHere = (TextView) findViewById(R.id.goToLoginText);
 
@@ -56,44 +56,16 @@ public class Activity_signUp extends AppCompatActivity {
 
                 setVisible(load);
 
-                String userText = userName.getText().toString().trim();
-                String passwordText = password.getText().toString().trim();
-                String rePasswordText = rePassword.getText().toString().trim();
-
-                if(TextUtils.isEmpty(userText)) {
-                    setGone(load);
-                    clearText(password);
-                    clearText(rePassword);
-                    userName.setError("Email is Required");
-                }
-                else if(TextUtils.isEmpty(passwordText)) {
-                    setGone(load);
-                    clearText(password);
-                    clearText(rePassword);
-                    password.setError("Password is Required");
-                }
-                else if(passwordText.length() < 6) {
-                    setGone(load);
-                    clearText(password);
-                    clearText(rePassword);
-                    password.setError("Password should be at least 6 in length");
-                }
-                else if(!passwordText.equals(rePasswordText)) {
-                    setGone(load);
-                    clearText(password);
-                    clearText(rePassword);
-                    password.setError("Passwords don't match");
-                }
-                else {
+                if (checkInformation()) {
                     auth.createUserWithEmailAndPassword(userText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
+                            if (task.isSuccessful()) {
                                 Objects.requireNonNull(auth.getCurrentUser()).sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()) {
+                                        if (task.isSuccessful()) {
                                             Toast.makeText(Activity_signUp.this, "User was created successfully, Please verify it", Toast.LENGTH_SHORT).show();
 
                                             ref = database.getReference("Users");
@@ -102,7 +74,7 @@ public class Activity_signUp extends AppCompatActivity {
 
                                             UserInfo info = makeInfo(userText, passwordText, uid);
 
-                                            if(info != null) {
+                                            if (info != null) {
                                                 ref.child(uid).setValue(info);
                                             }
 
@@ -110,25 +82,23 @@ public class Activity_signUp extends AppCompatActivity {
                                             startActivity(new Intent(getApplicationContext(), activity_Main.class));
                                             finish();
 
-                                        }
-
-                                        else {
+                                        } else {
                                             Toast.makeText(Activity_signUp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
 
-                            }
-
-                            else {
+                            } else {
                                 Toast.makeText(Activity_signUp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
 
-                setGone(load);
-
+                else{
+                    setGone(load);
+                    
+                }
             }
         });
 
@@ -160,6 +130,50 @@ public class Activity_signUp extends AppCompatActivity {
 
     private void setGone(ProgressBar bar) {
         bar.setVisibility(View.GONE);
+    }
+
+    private boolean checkInformation() {
+
+        if(TextUtils.isEmpty(email.getText().toString().trim())) {
+
+            clearText(password);
+            clearText(re_Password);
+
+            email.setError("Email is required");
+
+            return false;
+        }
+
+        else if (TextUtils.isEmpty(password.getText().toString().trim())) {
+
+            clearText(password);
+            clearText(re_Password);
+
+            password.setError("Password is required");
+
+            return false;
+        }
+
+        else if(password.getText().toString().trim().length() < 6) {
+
+            clearText(password);
+            clearText(re_Password);
+
+            password.setError("Password is too short");
+
+            return false;
+        }
+
+        else if (password.getText().toString().trim().equals(re_Password.getText().toString().trim())) {
+
+            clearText(re_Password);
+
+            re_Password.setError("Passwords don't match each other");
+
+            return false;
+        }
+
+        return true;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
