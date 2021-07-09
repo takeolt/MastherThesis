@@ -57,7 +57,7 @@ public class Activity_signUp extends AppCompatActivity {
                 setVisible(load);
 
                 if (checkInformation()) {
-                    auth.createUserWithEmailAndPassword(userText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    auth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -72,7 +72,7 @@ public class Activity_signUp extends AppCompatActivity {
                                             FirebaseUser user = auth.getCurrentUser();
                                             String uid = user.getUid();
 
-                                            UserInfo info = makeInfo(userText, passwordText, uid);
+                                            UserInfo info = makeInfo(email.getText().toString(), password.getText().toString(), uid);
 
                                             if (info != null) {
                                                 ref.child(uid).setValue(info);
