@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Eemail">
+        <activity android:name=".ui.SendEmails.SendEmail"></activity>
         <activity
             android:name=".ui.create.CreateActivity"
             android:label="@string/title_activity_create"

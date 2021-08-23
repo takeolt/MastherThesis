@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="Inbox"
-        android:textColor="#090909"
+        android:textColor="#8E8B8B"
         app:layout_constraintBottom_toTopOf="@+id/chipGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.007"
